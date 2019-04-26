@@ -1,0 +1,16 @@
+{
+  "name": "Confi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha tests/users --timeout 5000 --recursive",
+    "start": "NODE_ENV=development nodemon app.js"
+  },
+  "author": "Marija Stojanovic <marijastojanovic14@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
