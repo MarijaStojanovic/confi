@@ -1,12 +1,11 @@
 const mongoose = require('mongoose')
 const { User } = require('../models/user')
-const { hashSync } = require('bcrypt')
 const { connectionString } = require('../config/mongoConnection')
 
 mongoose.Promise = global.Promise
 
 // Add admin user to the database
-const password = hashSync('admin', 10)
+const password = 'admin'
 const email = 'admin@example.com'
 
 const admin = new User({
