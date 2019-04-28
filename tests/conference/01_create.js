@@ -14,6 +14,7 @@ describe('Create new conference', () => {
     request(app)
       .post('/api/conferences')
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${global.adminToken}`)
       .send(body)
       .expect(200)
       .then(({ body: { results } }) => {
@@ -30,12 +31,31 @@ describe('Create new conference', () => {
     request(app)
       .post('/api/conferences')
       .set('Accept', 'application/json')
+      .set('Authorization', `Bearer ${global.adminToken}`)
       .send(body)
       .expect(400)
       .then(({ body: { message, status, errorCode } }) => {
         message.should.equal('Missing parameters')
         status.should.equal(400)
         errorCode.should.equal(2)
+        done()
+      })
+      .catch(done)
+  })
+
+  it('POST /conference Should return unauthorized', (done) => {
+    const body = {
+      title: faker.lorem.word(),
+    }
+    request(app)
+      .post('/api/conferences')
+      .set('Accept', 'application/json')
+      .send(body)
+      .expect(401)
+      .then(({ body: { message, status, errorCode } }) => {
+        message.should.equal('No authorization token was found')
+        status.should.equal(401)
+        errorCode.should.equal(1)
         done()
       })
       .catch(done)

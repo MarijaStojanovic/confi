@@ -11,6 +11,7 @@ describe('Delete conference', () => {
         return request(app)
           .delete(`/api/conferences/${conference._id}`)
           .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${global.adminToken}`)
           .expect(200)
           .then(({ body: { message } }) => {
             message.should.equal('Successfully deleted conference')

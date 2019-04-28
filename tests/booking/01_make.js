@@ -33,7 +33,7 @@ describe('Make a new booking', () => {
       lastName: faker.name.findName(),
     }
     request(app)
-      .post('/api/conferences')
+      .post('/api/bookings')
       .set('Accept', 'application/json')
       .send(body)
       .expect(400)

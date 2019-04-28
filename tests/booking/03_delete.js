@@ -11,6 +11,7 @@ describe('Delete booking', () => {
         return request(app)
           .delete(`/api/bookings/${booking._id}`)
           .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${global.adminToken}`)
           .expect(200)
           .then(({ body: { message } }) => {
             message.should.equal('Successfully deleted booking')

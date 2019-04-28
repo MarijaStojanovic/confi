@@ -20,6 +20,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// Whitelisted routes
+app.use(expressJwt({ secret: process.env.JWT_SECRET }).unless({
+  path: [
+    '/api/signin',
+    { url: '/api/bookings', methods: ['POST'] },
+  ],
+}))
+
 // Create the database connection
 /* eslint-disable no-console */
 mongoose.connect(connectionString(), {

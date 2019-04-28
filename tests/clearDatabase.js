@@ -1,6 +1,7 @@
 /*  global before, after */
 const mongoose = require('mongoose')
 const { User } = require('../models/user')
+const { issueNewToken } = require('../lib/jwtHandler')
 
 before((done) => {
   mongoose.connection.on('open', () => {
@@ -10,7 +11,8 @@ before((done) => {
           email: 'test@test.com',
           password: 'test',
         }).save()
-          .then(() => {
+          .then((user) => {
+            global.adminToken = issueNewToken({ _id: user._id })
             done()
           })
       })
