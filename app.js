@@ -12,6 +12,7 @@ const app = express()
 // Application Routes
 const UserRoutes = require('./components/user/userRouter')
 const ConferenceRoutes = require('./components/conference/conferenceRouter')
+const BookingRoutes = require('./components/booking/bookingRouter')
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -57,6 +58,7 @@ process.on('SIGINT', () => {
 
 app.use('/api', UserRoutes)
 app.use('/api', ConferenceRoutes)
+app.use('/api', BookingRoutes)
 
 app.use(ErrorHandler())
 
