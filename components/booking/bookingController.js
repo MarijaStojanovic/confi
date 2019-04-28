@@ -17,6 +17,7 @@ const makeBooking = async (req, res) => {
     results: booking,
   })
 }
+
 const listBookings = async (req, res) => {
   const bookings = await Booking.find({}).lean()
   return res.status(200).send({
@@ -24,7 +25,18 @@ const listBookings = async (req, res) => {
   })
 }
 
+const deleteBooking = async (req, res) => {
+  const { bookingId } = req.params
+
+  await Booking.deleteOne({ _id: bookingId })
+
+  return res.status(200).send({
+    message: 'Successfully deleted booking',
+  })
+}
+
 module.exports = {
   makeBooking,
   listBookings,
+  deleteBooking,
 }
