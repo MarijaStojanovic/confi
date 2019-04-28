@@ -10,8 +10,9 @@ const port = process.env.PORT
 const app = express()
 
 // Application Routes
-const UserRoutes = require('./components/user/userRouter'
-)
+const UserRoutes = require('./components/user/userRouter')
+const ConferenceRoutes = require('./components/conference/conferenceRouter')
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -55,6 +56,7 @@ process.on('SIGINT', () => {
 })
 
 app.use('/api', UserRoutes)
+app.use('/api', ConferenceRoutes)
 
 app.use(ErrorHandler())
 
