@@ -17,7 +17,14 @@ const makeBooking = async (req, res) => {
     results: booking,
   })
 }
+const listBookings = async (req, res) => {
+  const bookings = await Booking.find({}).lean()
+  return res.status(200).send({
+    results: bookings,
+  })
+}
 
 module.exports = {
   makeBooking,
+  listBookings,
 }
