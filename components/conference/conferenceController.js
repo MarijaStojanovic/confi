@@ -17,6 +17,19 @@ const createConference = async (req, res) => {
   })
 }
 
+const deleteConference = async (req, res) => {
+  const { conferenceId } = req.params
+
+  await Conference.deleteOne({
+    _id: conferenceId
+  })
+
+  return res.status(200).send({
+    message: 'Successfully deleted conference',
+  })
+}
+
 module.exports = {
   createConference,
+  deleteConference,
 }

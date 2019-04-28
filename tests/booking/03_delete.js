@@ -4,7 +4,7 @@ const request = require('supertest')
 const should = require('chai').should()
 const { addRandomBooking } = require('../helper/createBooking')
 
-describe('Return list of all bookings', () => {
+describe('Delete booking', () => {
   it('DELETE /bookings/:bookingId Should successfully delete booking', (done) => {
     addRandomBooking()
       .then((booking) => {
