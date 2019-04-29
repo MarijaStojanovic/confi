@@ -1,4 +1,5 @@
 const Booking = require('../../models/booking')
+const { addRandomConference } = require('../helper/createConference')
 const faker = require('faker')
 
 /**
@@ -10,21 +11,26 @@ const faker = require('faker')
  * @returns {Promise}
  */
 const addRandomBooking = () => new Promise((resolve, reject) => {
-  return new Booking({
-    firstName: faker.name.findName(),
-    lastName: faker.name.findName(),
-    email: faker.internet.email().toLowerCase(),
-    phone: faker.random.number(),
-  }).save()
+  addRandomConference()
+    .then((conference) => {
+      return new Booking({
+        firstName: faker.name.findName(),
+        lastName: faker.name.findName(),
+        email: faker.internet.email().toLowerCase(),
+        phone: faker.random.number(),
+        conference: conference._id
+      }).save()
+    })
     .then(resolve)
     .catch(reject)
 })
 
 /**
  * Returns MongoDB saved bookings
+ * @param {String} conferenceId
  * @param {Number} numberOfBookings
  */
-const addManyBookings = (numberOfBookings = Math.floor(Math.random() * 10)) => new Promise((resolve, reject) => {
+const addManyBookings = (conferenceId, numberOfBookings = Math.floor(Math.random() * 10)) => new Promise((resolve, reject) => {
   const query = []
   for (let i = 0; i < numberOfBookings; i += 1) {
     query.push({
@@ -32,6 +38,7 @@ const addManyBookings = (numberOfBookings = Math.floor(Math.random() * 10)) => n
       lastName: faker.name.findName(),
       email: faker.internet.email().toLowerCase(),
       phone: faker.random.number(),
+      conference: conferenceId,
     })
   }
   Booking

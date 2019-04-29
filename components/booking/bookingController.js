@@ -19,7 +19,9 @@ const makeBooking = async (req, res) => {
 }
 
 const listBookings = async (req, res) => {
-  const bookings = await Booking.find({}).lean()
+  const { conferenceId } = req.params
+
+  const bookings = await Booking.find({ conference: conferenceId }).lean()
   return res.status(200).send({
     results: bookings,
   })
