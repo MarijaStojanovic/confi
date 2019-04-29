@@ -5,7 +5,7 @@ const { addRandomBooking } = require('../helper/createBooking')
 const should = require('chai').should()
 
 describe('Return list of all bookings', () => {
-  it('GET /bookings Should successfully return a list of all bookings', (done) => {
+  it('GET /conferences/:conferenceId/bookings Should successfully return a list of all bookings', (done) => {
     addRandomBooking()
       .then((booking) => {
         return request(app)

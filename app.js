@@ -24,7 +24,7 @@ app.use(bodyParser.json())
 app.use(expressJwt({ secret: process.env.JWT_SECRET }).unless({
   path: [
     '/api/signin',
-    { url: '/api/bookings', methods: ['POST'] },
+    { url: '/\/api\/conferences\/.+\/bookings/', methods: ['POST'] },
   ],
 }))
 

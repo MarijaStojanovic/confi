@@ -1,5 +1,7 @@
 const Booking = require('../../models/booking')
 const error = require('../../middlewares/errorHandling/errorConstants')
+const { customShortId } = require('../../lib/misc')
+const mailgun = require('mailgun-js')({ apiKey: process.env.API_KEY, domain: process.env.DOMAIN })
 
 const makeBooking = async (req, res) => {
   const { firstName, lastName, email, phone } = req.body
@@ -13,6 +15,22 @@ const makeBooking = async (req, res) => {
     phone,
   }).save()
 
+  const code = customShortId()
+  data = {
+    from: 'marija.stojanovic14@gmail.com',
+    to: booking.email,
+    subject: 'Confi confirmation code',
+    text: `Hello ${booking.firstName},
+
+    This is your code for entrance to conference: ${code}
+    
+    Best regards,`
+  }
+  mailgun.messages().send(data, (err, body) => {
+    if (err) {
+      console.log('err', err)
+    }
+  })
   return res.status(200).send({
     results: booking,
   })

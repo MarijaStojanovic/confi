@@ -1,5 +1,6 @@
 const { model, Schema } = require('mongoose')
 const { hashSync } = require('bcrypt')
+const { emailRegExp } = require('../lib/misc')
 
 const UserSchema = new Schema({
   email: {
@@ -7,6 +8,8 @@ const UserSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
+    match: [emailRegExp, 'Invalid email'],
+    required: 'Please enter an email address',
   },
   password: { type: String, required: true, select: false },
 }, { timestamps: true })
