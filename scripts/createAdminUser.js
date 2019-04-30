@@ -5,6 +5,7 @@ const { connectionString } = require('../config/mongoConnection')
 mongoose.Promise = global.Promise
 
 // Add admin user to the database
+/* eslint-disable no-console */
 const password = 'admin'
 const email = 'admin@example.com'
 
@@ -57,3 +58,4 @@ process.on('SIGINT', () => {
     process.exit(0)
   })
 })
+/* eslint-enable no-console */

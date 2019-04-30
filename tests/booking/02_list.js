@@ -7,8 +7,8 @@ const should = require('chai').should()
 describe('Return list of all bookings', () => {
   it('GET /conferences/:conferenceId/bookings Should successfully return a list of all bookings', (done) => {
     addRandomBooking()
-      .then((booking) => {
-        return request(app)
+      .then(booking =>
+        request(app)
           .get(`/api/conferences/${booking.conference}/bookings`)
           .set('Accept', 'application/json')
           .set('Authorization', `Bearer ${global.adminToken}`)
@@ -16,8 +16,7 @@ describe('Return list of all bookings', () => {
           .then(({ body: { results } }) => {
             results.length.should.equal(1)
             done()
-          })
-      })
+          }))
       .catch(done)
   })
 })
