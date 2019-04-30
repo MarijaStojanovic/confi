@@ -4,10 +4,14 @@ const bodyParser = require('body-parser')
 const expressJwt = require('express-jwt')
 const ErrorHandler = require('./middlewares/errorHandling/errorHandler')
 const { connectionString } = require('./config/mongoConnection')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 
-const port = process.env.PORT
+const port = process.env.PORT || 8010
 
 const app = express()
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Application Routes
 const UserRoutes = require('./components/user/userRouter')
@@ -24,7 +28,7 @@ app.use(bodyParser.json())
 app.use(expressJwt({ secret: process.env.JWT_SECRET }).unless({
   path: [
     '/api/signin',
-    { url: '/\/api\/conferences\/.+\/bookings/', methods: ['POST'] },
+    { url: /\/api\/conferences\/.+\/bookings/, methods: ['POST'] },
   ],
 }))
 

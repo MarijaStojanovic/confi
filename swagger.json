@@ -1,0 +1,269 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Confi API",
+    "description": "Confi API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:8010",
+  "basePath": "/api/",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    },
+    {
+      "name": "Bookings",
+      "description": "API for bookings in the system"
+    },
+    {
+      "name": "Conferences",
+      "description": "API for conferences in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/signin": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Signin user in system",
+        "parameters": [
+          {
+            "user": "signIn",
+            "in": "body",
+            "description": "User sign in",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully signed in user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/conferences": {
+      "post": {
+        "tags": [
+          "Conferences"
+        ],
+        "description": "Create new conference",
+        "parameters": [
+          {
+            "name": "createConference",
+            "in": "body",
+            "description": "User admin that we want to create",
+            "schema": {
+              "$ref": "#/definitions/Conference"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully created conference",
+            "schema": {
+              "$ref": "#/definitions/Conference"
+            }
+          }
+        }
+      }
+    },
+    "/conferences/:conferenceId": {
+      "delete": {
+        "tags": [
+          "Conferences"
+        ],
+        "description": "Delete conference",
+        "parameters": [
+          {
+            "name": "deleteConference",
+            "in": "params",
+            "description": "Admin user can delete a conference",
+            "schema": {
+              "$ref": "#/definitions/Conference"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted conference",
+            "schema": {
+              "$ref": "#/definitions/Conference"
+            }
+          }
+        }
+      }
+    },
+    "/conferences/:conferenceId/bookings": {
+      "post": {
+        "tags": [
+          "Bookings"
+        ],
+        "description": "Make a new booking",
+        "parameters": [
+          {
+            "name": "makeBooking",
+            "in": "body",
+            "description": "Make booking",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully created a new booking",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "description": "Get list of all bookings for some conference",
+        "parameters": [
+          {
+            "name": "listBookings",
+            "in": "body",
+            "description": "Get list of all bookings for some conference",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully get list of all bookings",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        }
+      }
+    },
+    "/bookings/:bookingId": {
+      "delete": {
+        "tags": [
+          "Bookings"
+        ],
+        "description": "Delete booking",
+        "parameters": [
+          {
+            "name": "deleteBooking",
+            "in": "body",
+            "description": "Admin user can delete a booking",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "BSuccessfully deleted booking",
+            "schema": {
+              "$ref": "#/definitions/Booking"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Conference": {
+      "required": [
+        "title",
+        "date"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string"
+        },
+        "date": {
+          "type": "Date",
+          "uniqueItems": true
+        }
+      }
+    },
+    "Booking": {
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "phone"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "firstName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "lastName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}
