@@ -1,4 +1,3 @@
-const { logError } = require('../../lib/misc')
 const errorMessage = require('./errorConstants')
 
 module.exports = () => (err, req, res, next) => {
@@ -69,14 +68,6 @@ module.exports = () => (err, req, res, next) => {
       error.status = 500
       error.message = 'Oops, an error occurred'
       error.errorCode = 0
-  }
-
-  if (error.status === 500) {
-    logError(err)
-  }
-
-  if (process.env.NODE_ENV === 'development') {
-    error.stack = err.stack
   }
 
   return res

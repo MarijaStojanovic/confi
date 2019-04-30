@@ -5,17 +5,22 @@ const mailgun = require('mailgun-js')({ apiKey: process.env.API_KEY, domain: pro
 
 const makeBooking = async (req, res) => {
   const { firstName, lastName, email, phone } = req.body
+  const { conferenceId } = req.params
+
   if (!firstName || !lastName || !email || !phone) {
     throw new Error(error.MISSING_PARAMETERS)
   }
+  const code = customShortId()
+
   const booking = await new Booking({
     firstName,
     lastName,
     email,
     phone,
+    conference: conferenceId,
+    code,
   }).save()
 
-  const code = customShortId()
   data = {
     from: 'marija.stojanovic14@gmail.com',
     to: booking.email,

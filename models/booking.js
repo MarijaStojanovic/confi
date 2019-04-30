@@ -15,6 +15,7 @@ const BookingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Conference',
   },
+  code: String,
 }, { timestamps: true })
 
 module.exports = model('Booking', BookingSchema)

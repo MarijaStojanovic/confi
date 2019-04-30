@@ -4,23 +4,22 @@ const faker = require('faker')
 
 /**
  * Returns the mongodb saved booking
- * @param {String} firstName 
- * @param {String} lastName 
- * @param {String} email 
- * @param {String} phone 
+ * @param {String} firstName
+ * @param {String} lastName
+ * @param {String} email
+ * @param {String} phone
  * @returns {Promise}
  */
 const addRandomBooking = () => new Promise((resolve, reject) => {
   addRandomConference()
-    .then((conference) => {
-      return new Booking({
+    .then(conference =>
+      new Booking({
         firstName: faker.name.findName(),
         lastName: faker.name.findName(),
         email: faker.internet.email().toLowerCase(),
         phone: faker.random.number(),
-        conference: conference._id
-      }).save()
-    })
+        conference: conference._id,
+      }).save())
     .then(resolve)
     .catch(reject)
 })

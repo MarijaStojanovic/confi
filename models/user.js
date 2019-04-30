@@ -14,6 +14,8 @@ const UserSchema = new Schema({
   password: { type: String, required: true, select: false },
 }, { timestamps: true })
 
+// Can not use arrow function, because this.password needs to work
+// eslint-disable-next-line func-names
 UserSchema.pre('save', function (next) {
   this.password = hashSync(this.password, 10)
   next()

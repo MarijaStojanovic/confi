@@ -6,7 +6,7 @@ const { authCheck } = require('../../middlewares/authCheck')
 const router = express.Router()
 
 router
-  .post('/conferences', catchAsyncError(createConference))
-  .delete('/conferences/:conferenceId', catchAsyncError(deleteConference))
+  .post('/conferences', authCheck, catchAsyncError(createConference))
+  .delete('/conferences/:conferenceId', authCheck, catchAsyncError(deleteConference))
 
 module.exports = router

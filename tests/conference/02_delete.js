@@ -7,8 +7,8 @@ const { addRandomConference } = require('../helper/createConference')
 describe('Delete conference', () => {
   it('DELETE /conferences/:conferenceId Should successfully delete conference', (done) => {
     addRandomConference()
-      .then((conference) => {
-        return request(app)
+      .then(conference =>
+        request(app)
           .delete(`/api/conferences/${conference._id}`)
           .set('Accept', 'application/json')
           .set('Authorization', `Bearer ${global.adminToken}`)
@@ -16,8 +16,7 @@ describe('Delete conference', () => {
           .then(({ body: { message } }) => {
             message.should.equal('Successfully deleted conference')
             done()
-          })
-      })
+          }))
       .catch(done)
   })
 })
