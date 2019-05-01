@@ -44,6 +44,14 @@ ___
 
 ## Configuration
 
+Set environment variable
+```shell
+JWT_SECRET
+PORT
+API_KEY
+DOMAIN
+```
+
 To run a project in a `development` enviroment run
 
 ```shell
